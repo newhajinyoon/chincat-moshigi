@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>친찾 표지판 뭐시깽이</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .color-picker {
+      width: 100%;
+      height: 40px;
+    }
+    .result-container {
+      margin-top: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      white-space: pre-wrap;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>친찾 표지판 뭐시깽이</h2>
+    <div class="form-group">
+      <label for="game-name">게임 이름을 입력하세요:</label>
+      <input type="text" id="game-name" placeholder="샌즈워">
+    </div>
+    <div class="form-group">
+      <label for="color-picker">색을 선택하세요:</label>
+      <input type="color" id="color-picker" class="color-picker">
+    </div>
+    <div class="form-group">
+      <label for="suffix">조사를 입력하세요:</label>
+      <input type="text" id="suffix" placeholder="을/를">
+    </div>
+    <div class="form-group">
+        <label for="command">명령어를 입력하세요:</label>
+        <input type="text" id="command" placeholder="/tp @a[tag=isgaming]" value="/tp @a[tag=isgaming]">
+      </div>      
+    <button onclick="generateResult()">결과 도출</button>
+    <div class="result-container" id="result-container"></div>
+  </div>
+
+  <script>
+    function generateResult() {
+      const gameName = document.getElementById("game-name").value;
+      const colorHex = document.getElementById("color-picker").value;
+      const suffix = document.getElementById("suffix").value;
+      const ws = document.getElementById("command").value;
+
+      const frontText = `/setblock ~ ~ ~ minecraft:spruce_wall_sign[facing=east,waterlogged=false]{back_text:{color:"black",has_glowing_text:0b,messages:['{"text":""}','{"text":""}','{"text":""}','{"text":""}']},front_text:{color:"black",has_glowing_text:0b,messages:['{"text":""}','{"bold":true,"italic":false,"color":"gold","clickEvent":{"action":"run_command","value":"/tellraw @a [{\\\\"selector\\\\":\\\\"@s\\\\"},{\\\\"text\\\\":\\\\" 님이 같이 \\\\",\\\\"color\\\\":\\\\"yellow\\\\"},{\\\\"text\\\\":\\\\"${gameName}\\\\",\\\\"color\\\\":\\\\"${colorHex}\\\\",\\\\"bold\\\\":true},{\\\\"text\\\\":\\\\"${suffix} 할 \\\\",\\\\"color\\\\":\\\\"yellow\\\\"},{\\\\"text\\\\":\\\\"친구\\\\",\\\\"color\\\\":\\\\"green\\\\",\\\\"bold\\\\":true},{\\\\"text\\\\":\\\\"를 찾고있어요! \\\\",\\\\"color\\\\":\\\\"yellow\\\\"},{\\\\"text\\\\":\\\\"[ 게임참가 ]\\\\",\\\\"color\\\\":\\\\"green\\\\",\\\\"italic\\\\":false,\\\\"hoverEvent\\\\":{\\\\"action\\\\":\\\\"show_text\\\\",\\\\"contents\\\\":[{\\\\"text\\\\":\\\\"여기를 눌러 게임에 참가하세요!\\\\",\\\\"color\\\\":\\\\"yellow\\\\",\\\\"italic\\\\":false}]},\\\\"clickEvent\\\\":{\\\\"action\\\\":\\\\"run_command\\\\",\\\\"value\\\\":\\\\"${ws}\\\\"}}]"},"text":"[ 친구찾기 ]"}','{"text":""}','{"text":""}']},is_waxed:0b}`;
+
+      const resultJson = frontText
+      
+      document.getElementById("result-container").innerText = resultJson;
+    }
+  </script>
+</body>
+</html>
